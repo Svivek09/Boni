@@ -9,9 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "create-demos": "node scripts/create-demo-pages.js",
-    "export": "next build && next export",
     "deploy:render": "npm run build",
-    "deploy:netlify": "npm run build"
+    "deploy:netlify": "npm run build",
+    "deploy:vercel": "npm run build"
   },
   "dependencies": {
     "next": "15.4.5",

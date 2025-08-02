@@ -1,13 +1,13 @@
-# Boni Bot - Page Creator
+# Boni Bot - Dynamic Page Creator
 
 A simple Next.js app that creates pages using API calls.
 
-## Features
+## What it does
 
-- 5 components: Card, ImageBlock, TextSection, StatsBox, CTA
 - Create pages with POST API
+- 5 components: Card, ImageBlock, TextSection, StatsBox, CTA
 - JSON configuration
-- Simple design
+- Basic design
 
 ## Setup
 
@@ -26,6 +26,8 @@ npm run dev
 npm run create-demos
 ```
 
+Visit http://localhost:3000 to see the app.
+
 ## API
 
 ### POST /api/pages
@@ -42,7 +44,7 @@ Create a new page.
       "props": {
         "title": "Welcome",
         "content": "This is my page",
-        "alignment": "center"
+        "className": "text-center"
       }
     }
   ]
@@ -78,13 +80,11 @@ List all pages.
 ### TextSection
 - `title` - Section title
 - `content` - Text content
-- `variant` - "default", "large", "small"
-- `alignment` - "left", "center", "right"
+- `className` - CSS classes
 
 ### StatsBox
 - `value` - Stat value
 - `label` - Stat label
-- `color` - "blue", "green", "red", "yellow", "purple"
 
 ### CTA
 - `text` - Button text
@@ -105,7 +105,7 @@ curl -X POST http://localhost:3000/api/pages \
         "props": {
           "title": "Hello",
           "content": "This is a test page",
-          "alignment": "center"
+          "className": "text-center"
         }
       }
     ]
@@ -114,8 +114,8 @@ curl -X POST http://localhost:3000/api/pages \
 
 ## Demo Pages
 
-- http://localhost:3000/welcome
-- http://localhost:3000/product-showcase
+- http://localhost:3000/simple-page
+- http://localhost:3000/page-with-image
 
 ## Tech Stack
 
@@ -123,3 +123,62 @@ curl -X POST http://localhost:3000/api/pages \
 - TypeScript
 - Tailwind CSS
 - React 19
+
+## Deploy
+
+### Render
+1. Fork this repo
+2. Connect to Render
+3. Build Command: `npm install && npm run build`
+4. Start Command: `npm start`
+
+### Netlify
+1. Fork this repo
+2. Connect to Netlify
+3. Build Command: `npm run build`
+4. Publish Directory: `out`
+
+### Vercel
+1. Fork this repo
+2. Connect to Vercel
+3. Deploy automatically
+
+## Files
+
+```
+boni-app/
+├── src/app/
+│   ├── api/pages/route.ts    # API endpoint
+│   ├── page.tsx              # Homepage
+│   ├── simple-page/          # Demo page
+│   └── page-with-image/      # Demo page
+├── src/components/
+│   ├── Card.tsx
+│   ├── ImageBlock.tsx
+│   ├── TextSection.tsx
+│   ├── StatsBox.tsx
+│   ├── CTA.tsx
+│   └── index.ts
+├── scripts/
+│   └── create-demo-pages.js  # Demo creation script
+├── render.yaml               # Render config
+├── netlify.toml             # Netlify config
+├── vercel.json              # Vercel config
+└── next.config.ts           # Next.js config
+```
+
+## Scripts
+
+- `npm run dev` - Start dev server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run create-demos` - Create demo pages
+
+## License
+
+MIT License
+
+---
+
+Made with Next.js for Boni Bot
