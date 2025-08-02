@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Boni Bot - Page Creator
 
-## Getting Started
+A simple Next.js app that creates pages using API calls.
 
-First, run the development server:
+## Features
 
+- 5 components: Card, ImageBlock, TextSection, StatsBox, CTA
+- Create pages with POST API
+- JSON configuration
+- Simple design
+
+## Setup
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Start the server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create demo pages:
+```bash
+npm run create-demos
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API
 
-## Learn More
+### POST /api/pages
 
-To learn more about Next.js, take a look at the following resources:
+Create a new page.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Request:**
+```json
+{
+  "slug": "my-page",
+  "components": [
+    {
+      "type": "TextSection",
+      "props": {
+        "title": "Welcome",
+        "content": "This is my page",
+        "alignment": "center"
+      }
+    }
+  ]
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Page created successfully at /my-page",
+  "url": "/my-page"
+}
+```
 
-## Deploy on Vercel
+### GET /api/pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+List all pages.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Components
+
+### Card
+- `title` - Card title
+- `content` - Card content  
+- `imageUrl` - Image URL
+- `imageAlt` - Image alt text
+
+### ImageBlock
+- `src` - Image source
+- `alt` - Image alt text
+- `caption` - Image caption
+
+### TextSection
+- `title` - Section title
+- `content` - Text content
+- `variant` - "default", "large", "small"
+- `alignment` - "left", "center", "right"
+
+### StatsBox
+- `value` - Stat value
+- `label` - Stat label
+- `color` - "blue", "green", "red", "yellow", "purple"
+
+### CTA
+- `text` - Button text
+- `href` - Link URL
+- `variant` - "primary", "secondary", "outline"
+- `size` - "small", "medium", "large"
+
+## Example
+
+```bash
+curl -X POST http://localhost:3000/api/pages \
+  -H "Content-Type: application/json" \
+  -d '{
+    "slug": "test-page",
+    "components": [
+      {
+        "type": "TextSection",
+        "props": {
+          "title": "Hello",
+          "content": "This is a test page",
+          "alignment": "center"
+        }
+      }
+    ]
+  }'
+```
+
+## Demo Pages
+
+- http://localhost:3000/welcome
+- http://localhost:3000/product-showcase
+
+## Tech Stack
+
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- React 19
