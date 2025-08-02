@@ -28,6 +28,21 @@ npm run create-demos
 
 Visit http://localhost:3000 to see the app.
 
+## Environment Variables
+
+For deployment, you may need these environment variables:
+
+```bash
+# Required for production
+NODE_ENV=production
+
+# Optional: Custom API URL (for scripts)
+API_URL=https://your-domain.com/api/pages
+
+# Optional: Custom domain
+NEXT_PUBLIC_APP_URL=https://your-domain.com
+```
+
 ## API
 
 ### POST /api/pages
@@ -63,6 +78,15 @@ Create a new page.
 ### GET /api/pages
 
 List all pages.
+
+## API URL Usage
+
+The API runs on the same domain as your app:
+
+- **Local**: `http://localhost:3000/api/pages`
+- **Render**: `https://your-app.onrender.com/api/pages`
+- **Netlify**: `https://your-app.netlify.app/api/pages`
+- **Vercel**: `https://your-app.vercel.app/api/pages`
 
 ## Components
 
@@ -131,17 +155,20 @@ curl -X POST http://localhost:3000/api/pages \
 2. Connect to Render
 3. Build Command: `npm install && npm run build`
 4. Start Command: `npm start`
+5. Environment Variables: `NODE_ENV=production`
 
 ### Netlify
 1. Fork this repo
 2. Connect to Netlify
 3. Build Command: `npm run build`
-4. Publish Directory: `out`
+4. Publish Directory: `.next`
+5. Environment Variables: `NODE_ENV=production`
 
 ### Vercel
 1. Fork this repo
 2. Connect to Vercel
 3. Deploy automatically
+4. Environment Variables: `NODE_ENV=production`
 
 ## Files
 
