@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { createPage, getAllPages } from '@/lib/database';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,21 +59,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const appDir = path.join(process.cwd(), 'src', 'app');
-    const pageDir = path.join(appDir, slug);
-    const pageFile = path.join(pageDir, 'page.tsx');
-
-    if (!fs.existsSync(pageDir)) {
-      fs.mkdirSync(pageDir, { recursive: true });
-    }
-
-    const pageContent = generatePageContent(slug, components);
-    fs.writeFileSync(pageFile, pageContent);
+    await createPage(slug, components);
 
     return NextResponse.json({
       success: true,
       url: `/${slug}`,
-      message: `Page created successfully at /${slug}`
+      message: `Page created successfully at /${slug}`,
+      note: 'Page stored in database - instant access!'
     });
 
   } catch (error) {
@@ -88,25 +79,12 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const appDir = path.join(process.cwd(), 'src', 'app');
-    const pages: string[] = [];
-
-    if (fs.existsSync(appDir)) {
-      const items = fs.readdirSync(appDir, { withFileTypes: true });
-      
-      for (const item of items) {
-        if (item.isDirectory() && item.name !== 'api') {
-          const pageFile = path.join(appDir, item.name, 'page.tsx');
-          if (fs.existsSync(pageFile)) {
-            pages.push(item.name);
-          }
-        }
-      }
-    }
+    const pages = await getAllPages();
 
     return NextResponse.json({
       pages,
-      count: pages.length
+      count: pages.length,
+      note: 'Pages stored in database - instant access!'
     });
 
   } catch (error) {
