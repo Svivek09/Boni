@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -61,23 +62,23 @@ export default function HomePage() {
             <div className="border p-4 rounded bg-white">
               <h3 className="font-bold mb-2 text-gray-900">Simple Page</h3>
               <p className="text-sm text-gray-700 mb-3">Basic page with just text content</p>
-              <a 
+              <Link 
                 href="/simple-page" 
                 className="bg-purple-600 text-white px-4 py-2 rounded text-sm hover:bg-purple-700"
               >
                 View Page
-              </a>
+              </Link>
             </div>
             
             <div className="border p-4 rounded bg-white">
               <h3 className="font-bold mb-2 text-gray-900">Page with Image</h3>
               <p className="text-sm text-gray-700 mb-3">Page that shows an image</p>
-              <a 
+              <Link 
                 href="/page-with-image" 
                 className="bg-purple-600 text-white px-4 py-2 rounded text-sm hover:bg-purple-700"
               >
                 View Page
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -90,9 +91,9 @@ export default function HomePage() {
               Built with Next.js for Boni Bot
             </p>
             <div className="flex justify-center items-center space-x-6">
-              <a href="/api/pages" className="text-purple-400 hover:text-purple-300 transition-colors">
+              <Link href="/api/pages" className="text-purple-400 hover:text-purple-300 transition-colors">
                 API
-              </a>
+              </Link>
               <span className="text-gray-400">•</span>
               <a href="https://github.com" className="text-purple-400 hover:text-purple-300 transition-colors">
                 GitHub

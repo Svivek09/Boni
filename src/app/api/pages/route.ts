@@ -13,39 +13,7 @@ interface PageRequest {
   components: ComponentConfig[];
 }
 
-function generatePageContent(slug: string, components: ComponentConfig[]): string {
-  const functionName = slug.split('-').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('');
 
-  const componentImports = components.map(comp => comp.type).filter((value, index, self) => self.indexOf(value) === index);
-  
-  const componentJSX = components.map(comp => {
-    const props = Object.entries(comp.props)
-      .map(([key, value]) => {
-        if (typeof value === 'string') {
-          return `${key}="${value}"`;
-        }
-        return `${key}={${JSON.stringify(value)}}`;
-      })
-      .join(' ');
-
-    return `        <${comp.type} ${props} />`;
-  }).join('\n');
-
-  return `import React from 'react';
-import { ${componentImports.join(', ')} } from '@/components';
-
-export default function ${functionName}Page() {
-  return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-4 py-8">
-${componentJSX}
-      </div>
-    </div>
-  );
-}`;
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -68,7 +36,7 @@ export async function POST(request: NextRequest) {
       note: 'Page stored in database - instant access!'
     });
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating page:', error);
     return NextResponse.json(
       { error: 'Failed to create page' },
@@ -87,7 +55,7 @@ export async function GET() {
       note: 'Pages stored in database - instant access!'
     });
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error listing pages:', error);
     return NextResponse.json(
       { error: 'Failed to list pages' },
